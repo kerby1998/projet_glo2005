@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>inscription</title>
+    <link rel="stylesheet" href="../static/styles.css" />
+</head>
+<body>
+
+<div id="form_div">
+
+<form action="ProchainePage" method="post">
+    <label>
+
+        <input name="prenom" type="text" placeholder="votre prénom"/>
+    </label>
+    <br/>
+    <label>
+        <input name="nom" type="text" placeholder="votre nom"/>
+    </label>
+    <br/>
+    <label>
+        <input name="courriel" type="email" placeholder="votre courriel"/>
+    </label>
+    <br/>
+    <label>
+        <input name="mot-de-passe" type="password" placeholder="votre mot de passe"
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" title="au moins 8 caractères, un caractère majuscule et minuscule et un numéro"/>
+    </label>
+    <br/>
+    <input type="submit" value="Envoyer">
+</form>
+</div>
+</body>
+</html>

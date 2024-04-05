@@ -1,0 +1,147 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+ul {
+    float: right;
+   list-style-type: none;
+    margin: 0;
+    padding: 0;
+  /*  overflow: hidden;*/
+background-color: aliceblue;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+li {
+    border-right: 1px solid #bbb;
+}
+
+li a {
+    float: right;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    color: aqua;
+    transition: all 300ms ease-in-out;
+
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+
+input[type=text], input[type="email"], input[type="password"], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=search], select {
+    width: 200px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#search_button {
+    width: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+#form_div {
+    width: 50%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #4CAF50;
+}
+
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+#img_div {
+
+
+    width: 100%;
+    height: 100%;}
+
+.bg {
+    /* The image used */
+    background-image: url("https://images.pexels.com/photos/7578218/pexels-photo-7578218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#research_box {
+    float: none;
+    margin: auto;
+   // display: inline;
+   // align-items: end;
+    //align-content: center;
+
+    display: flex; /* Make parent a flex-container */
+    justify-content: center; /* Centers child horizontally */
+    align-items: center;
+
+    width: 50%;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #4CAF50;
+}
