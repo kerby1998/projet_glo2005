@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail du Livre - Librairie Infinie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('C:\\Users\\HP USER\\Desktop\\GLO-2005\\img_7f8b158998f152fc7ee4c06e38833edf.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px);
+            z-index: -1;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .book-details-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            color: #fff;
+        }
+
+        .book-cover {
+            width: 200px;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        .book-details {
+            margin-top: 20px;
+        }
+
+        .book-title {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .author,
+        .published-date,
+        .genre,
+        .price {
+            margin: 5px 0;
+        }
+
+        .description {
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart-btn {
+            padding: 10px 20px;
+            background-color: black;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-image"></div>
+    <header>
+        <div class="banner">
+            <h1>Librairie Infinie</h1>
+            <nav>
+                <ul>
+                    <li><a href="mon_compte.html" id="account-link">Mon Compte</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="panier.html">Mon Panier</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="book-details-container">
+        <img src="book_cover.jpg" alt="Book Cover" class="book-cover">
+        <div class="book-details">
+            <h2 class="book-title">Titre du Livre</h2>
+            <p class="author">Auteur: John Doe</p>
+            <p class="published-date">Date de Publication: January 1, 2024</p>
+            <p class="genre">Genre: Fiction</p>
+            <p class="description">Description: texte ici.</p>
+            <p class="price">Prix: $19.99</p>
+            <button class="add-to-cart-btn">Ajouter au Panier</button>
+        </div>
+    </div>
+
+    <script>
+        // Empêcher le comportement de lien par défaut lorsqu'on clique sur "Mon Compte"
+        document.getElementById("account-link").addEventListener("click", function (event) {
+            event.preventDefault();
+            // Mettez ici la logique de vérification de connexion
+        });
+    </script>
+</body>
+
+</html>
