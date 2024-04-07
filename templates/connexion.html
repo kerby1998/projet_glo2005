@@ -1,52 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title>Librairie Infinie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
             margin: 0;
             padding: 0;
-            position: relative; /* Ajout d'une position relative pour le corps */
         }
-        .header {
-            text-align: center;
-            overflow: hidden;
-            margin-bottom: 20px;
-            position: relative; /* Ajout d'une position relative pour l'élément contenant la bannière */
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('C:\\Users\\HP USER\\Desktop\\GLO-2005\\img_7f8b158998f152fc7ee4c06e38833edf.jpg'); /* Chemin de votre image d'arrière-plan */
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px); /* Appliquer un flou à l'image */
+            z-index: -1; /* Placer l'image en arrière-plan */
         }
-        .banner-image {
-            width: calc(50% + 200px);
-            height: 200px;
-            object-fit: cover;
-            border: 10px solid #8B4513; /* Couleur brun pour le contour */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre autour de l'image */
-            position: relative; /* Ajout d'une position relative pour l'image */
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
         }
+
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+		
         .site-text {
             position: absolute;
             bottom: 14px; /* Place le texte légèrement au-dessus du bas de l'image */
             left: 50%;
             transform: translateX(-50%); /* Centre le texte horizontalement */
             padding: 10px;
-            color: black; /* Changement de couleur du texte en noir */
+            color: white; /* Changement de couleur du texte en blanc */
             text-align: center; /* Centrage du texte */
             background-color: rgba(0, 0, 0, 0.5); /* Changement de couleur du fond en noir transparent */
             border-radius: 5px; /* Ajout d'un peu de bordure arrondie */
         }
+
         .site-title {
             font-size: 24px;
             margin: 0;
-            color: white; /* Changement de couleur du titre en blanc */
         }
+
         .site-description {
             font-size: 16px;
-            color: white; /* Changement de couleur du texte de description en blanc */
             margin: 0;
         }
+
         .login-container {
             max-width: calc(50% + 200px);
             margin: 0 auto;
@@ -55,18 +87,23 @@
             flex-direction: column;
             align-items: center;
         }
-        #login_form, .register-link {
-            background-color: #fff;
+
+        #login_form,
+        .register-container {
+            background-color: rgba(0, 0, 0, 0.7); /* Couleur de fond noir transparent */
             max-width: 400px;
             margin: 20px;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            color: white; /* Couleur du texte en blanc */
         }
+
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 20px; /* Espacement plus grand entre les champs */
         }
+
         input[type="email"],
         input[type="password"] {
             width: calc(100% - 20px); /* Largeur ajustée */
@@ -74,40 +111,51 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             box-sizing: border-box;
+            margin-bottom: 20px; /* Espacement plus grand entre les champs */
         }
+
         input[type="submit"] {
             width: 100%;
             padding: 10px;
-            background-color: #007bff;
+            background-color: black; /* Couleur du bouton noire */
             border: none;
             color: #fff;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+       .register-container {
+            text-align: center;
+            margin-top: 20px; /* Espacement entre la boîte de connexion et le lien d'inscription */
+        }
+		
         .register-text {
-            margin-top: 10px; /* Ajuste légèrement la marge supérieure */
-            font-weight: bold;
-            font-size: larger;
-            color: black; /* Changement de couleur du texte en noir */
-            text-align: center; /* Centrage du texte */
+            font-weight: bold; /* Texte plus gras */
+            font-size: larger; /* Taille de police plus grande */
         }
-        .register-link {
-            margin-top: 10px;
-        }
+		
     </style>
 </head>
+
 <body>
-    <div class="header">
-        <img src="C:\Users\HP USER\Desktop\GLO-2005\banner_image.jpg.jpg" alt="Bannière du magasin de livres" class="banner-image">
-        <div class="site-text">
-            <h1 class="site-title">Magasin de Livres en Ligne</h1>
-            <p class="site-description">Trouvez vos livres préférés et partagez votre passion pour la lecture</p>
+    <div class="background-image"></div> <!-- Div pour l'image d'arrière-plan floue -->
+         <header>
+        <div class="banner">
+            <h1>Librairie Infinie</h1>
+            <nav>
+                <ul>
+                    <li><a href="mon_compte.html">Mon Compte</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="panier.html">Mon Panier</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </header>
     <div class="login-container">
         <div id="login_form">
             <h2>Ouvrir une session</h2>
@@ -119,11 +167,9 @@
                 <input type="submit" value="Se Connecter">
             </form>
         </div>
-        <div class="register-text">
-            <p><span style="font-weight:bold;">Vous n'avez pas de compte?</span></p>
-        </div>
-        <div class="register-link">
-            <p><a href="inscription.html" style="text-decoration:none; color:black;">Inscrivez-vous ici</a></p>
+        <div class="register-container">
+            <p><span class="register-text">Vous n'avez pas de compte?</span></p>
+            <p><a href="inscription.html" style="text-decoration:none; color:white;">Inscrivez-vous ici</a></p>
         </div>
     </div>
 
@@ -133,8 +179,5 @@
         }
     </script>
 </body>
+
 </html>
-
-
-
-
