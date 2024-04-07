@@ -117,7 +117,8 @@
             <h1>Librairie Infinie</h1>
             <nav>
                 <ul>
-                    <li><a href="mon_compte.html" id="account-link">Mon Compte</a></li>
+                    <li><a href="accueil.html">Accueil</a></li>
+                    <li><a href="#" id="account-link">Mon Compte</a></li> <!-- vérifier connection avec compte-->
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="panier.html">Mon Panier</a></li>
                 </ul>
@@ -125,6 +126,22 @@
         </div>
     </header>
 
+    <script>
+        document.getElementById("account-link").addEventListener("click", function(event) {
+            event.preventDefault(); // Empêcher le comportement de lien par défaut
+
+            // Vérifier si un compte est connecté (par exemple, vérifier une variable globale, localStorage, ou autre)
+            var isLoggedIn = false; // Mettez ici la logique de vérification de connexion
+
+            // Rediriger en fonction de l'état de connexion
+            if (isLoggedIn) {
+                window.location.href = "mon_compte.html"; // Rediriger vers la page de compte si connecté
+            } else {
+                window.location.href = "connexion.html"; // Rediriger vers la page de connexion sinon
+            }
+        });
+    </script>
+    
     <div class="book-details-container">
         <img src="book_cover.jpg" alt="Book Cover" class="book-cover">
         <div class="book-details">
