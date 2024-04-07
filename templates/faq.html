@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Librairie Infinie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white; /* Couleur du texte en blanc */
+        }
+
+        .blur-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('C:\\Users\\HP USER\\Desktop\\GLO-2005\\img_7f8b158998f152fc7ee4c06e38833edf.jpg'); /* Chemin de votre image d'arrière-plan */
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px); /* Appliquer un flou à l'image */
+            z-index: -1; /* Placer l'image floue en arrière-plan */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: rgba(0, 0, 0, 0.7); /* Fond noir transparent */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .answer {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blur-background"></div> <!-- Div pour l'image de fond floue -->
+    <header>
+        <div class="banner">
+            <h1>Librairie Infinie</h1>
+            <nav>
+                <ul>
+                    <li><a href="accueil.html">Accueil</a></li>
+                    <li><a href="mon_compte.html">Mon Compte</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="panier.html">Mon Panier</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="faq-container"> <!-- c'est seulement des exemples de questions on pourra les changer-->
+        <div class="question">Q: Quels sont les modes de paiement acceptés ?</div>
+        <div class="answer">R: Nous acceptons les paiements par carte de crédit (Visa, MasterCard), PayPal et virement bancaire.</div> 
+
+        <div class="question">Q: Comment puis-je retourner un livre ?</div>
+        <div class="answer">R: Vous pouvez retourner un livre dans les 30 jours suivant l'achat en contactant notre service clientèle.</div>
+
+        <div class="question">Q: Est-ce que vous livrez à l'international ?</div>
+        <div class="answer">R: Oui, nous livrons dans le monde entier. Les frais de livraison varient en fonction de la destination.</div>
+    </div>
+</body>
+
+</html>
