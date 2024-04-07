@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            position: relative; /* Ajout d'une position relative pour le corps */
+        }
+        .header {
+            text-align: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative; /* Ajout d'une position relative pour l'élément contenant la bannière */
+        }
+        .banner-image {
+            width: calc(50% + 200px);
+            height: 200px;
+            object-fit: cover;
+            border: 10px solid #8B4513; /* Couleur brun pour le contour */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre autour de l'image */
+            position: relative; /* Ajout d'une position relative pour l'image */
+        }
+        .site-text {
+            position: absolute;
+            bottom: 14px; /* Place le texte légèrement au-dessus du bas de l'image */
+            left: 50%;
+            transform: translateX(-50%); /* Centre le texte horizontalement */
+            padding: 10px;
+            color: black; /* Changement de couleur du texte en noir */
+            text-align: center; /* Centrage du texte */
+            background-color: rgba(0, 0, 0, 0.5); /* Changement de couleur du fond en noir transparent */
+            border-radius: 5px; /* Ajout d'un peu de bordure arrondie */
+        }
+        .site-title {
+            font-size: 24px;
+            margin: 0;
+            color: white; /* Changement de couleur du titre en blanc */
+        }
+        .site-description {
+            font-size: 16px;
+            color: white; /* Changement de couleur du texte de description en blanc */
+            margin: 0;
+        }
+        .login-container {
+            max-width: calc(50% + 200px);
+            margin: 0 auto;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #login_form, .register-link {
+            background-color: #fff;
+            max-width: 400px;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 20px); /* Largeur ajustée */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .register-text {
+            margin-top: 10px; /* Ajuste légèrement la marge supérieure */
+            font-weight: bold;
+            font-size: larger;
+            color: black; /* Changement de couleur du texte en noir */
+            text-align: center; /* Centrage du texte */
+        }
+        .register-link {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="C:\Users\HP USER\Desktop\GLO-2005\banner_image.jpg.jpg" alt="Bannière du magasin de livres" class="banner-image">
+        <div class="site-text">
+            <h1 class="site-title">Magasin de Livres en Ligne</h1>
+            <p class="site-description">Trouvez vos livres préférés et partagez votre passion pour la lecture</p>
+        </div>
+    </div>
+    <div class="login-container">
+        <div id="login_form">
+            <h2>Ouvrir une session</h2>
+            <form action="process_login.php" method="post">
+                <label for="email">Adresse E-mail:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="password" required>
+                <input type="submit" value="Se Connecter">
+            </form>
+        </div>
+        <div class="register-text">
+            <p><span style="font-weight:bold;">Vous n'avez pas de compte?</span></p>
+        </div>
+        <div class="register-link">
+            <p><a href="inscription.html" style="text-decoration:none; color:black;">Inscrivez-vous ici</a></p>
+        </div>
+    </div>
+</body>
+</html>
+;
+
+
+
+
