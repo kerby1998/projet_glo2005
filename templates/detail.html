@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/style_general.css">
+
+    <title>Annonce</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .annonce {
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+        }
+        .annonce:last-child {
+            border-bottom: none;
+        }
+        .titre {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .description {
+            margin-bottom: 10px;
+        }
+        .infos {
+            font-size: 14px;
+            color: #666;
+        }
+        .carousel {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-item {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .carousel-nav button {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <ul>
+        <li><a href="/inscription">s'inscrire</a></li>
+        <li><a href="/connexion">se connecter</a></li>
+        <li><a href="/">Accueil</a></li>
+    </ul>
+</nav>
+{% if annonce %}
+    <div class="container">
+        <h1>Annonce</h1>
+        <h5>{{ annonce[8] }}</h5>
+
+        <div class="annonce">
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <img src="https://www.zooplus.be/magazine/wp-content/uploads/2018/10/AdobeStock_267258965-768x512.jpg" alt="Image 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.chien.fr/assets/img/000/107/1200x675/teckel.jpg" alt="Image 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.chien.fr/assets/ckeditor/2022/nov/actualities/107/xl/teckel-chien_fr1.jpg" alt="Image 3">
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button id="prev">&lt;</button>
+                    <button id="next">&gt;</button>
+                </div>
+            </div>
+            <div class="titre"> {{ annonce['titre_annonce'] }} </div>
+            <div class="titre"> {{ annonce['prix'] }}</div>
+            <div class="description">{{ annonce['description'] }}</div>
+            <div class="infos">État: {{ annonce['etat'] }} | Genre: {{ annonce['genre'] }} | Prix: {{ annonce['prix'] }}$ | Statut: {{ annonce['statut'] }}</div>
+        </div>
+        <!-- Fin des annonces de démonstration -->
+    </div>
+    {% else %}
+    <p>Aucune annonce trouvée avec cet ID</p>
+    {% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const carousel = document.querySelector('.carousel');
+        const prevBtn = carousel.querySelector('#prev');
+        const nextBtn = carousel.querySelector('#next');
+        const carouselInner = carousel.querySelector('.carousel-inner');
+
+        let currentIndex = 0;
+        const totalItems = carouselInner.children.length;
+
+        prevBtn.addEventListener('click', function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        nextBtn.addEventListener('click', function () {
+            if (currentIndex < totalItems - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        function updateCarousel() {
+            const itemWidth = carouselInner.children[0].clientWidth;
+            const offset = -currentIndex * itemWidth;
+            carouselInner.style.transform = `translateX(${offset}px)`;
+        }
+    });
+</script>
+</body>
+</html>

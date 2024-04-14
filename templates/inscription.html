@@ -1,35 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>inscription</title>
-    <link rel="stylesheet" href="../static/styles.css" />
+    <title>Accueil</title>
+
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/style_general.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
+
 <body>
 
-<div id="form_div">
+<nav class="navbar">
+    <ul>
+        <li><a href="/inscription">s'inscrire</a></li>
+        <li><a href="/connexion">se connecter</a></li>
+        <li><a href="/">Accueil</a></li>
+    </ul>
+</nav>
 
-<form action="ProchainePage" method="post">
-    <label>
+<div  class="split righty" >
 
-        <input name="prenom" type="text" placeholder="votre prénom"/>
-    </label>
-    <br/>
-    <label>
-        <input name="nom" type="text" placeholder="votre nom"/>
-    </label>
-    <br/>
-    <label>
-        <input name="courriel" type="email" placeholder="votre courriel"/>
-    </label>
-    <br/>
-    <label>
-        <input name="mot-de-passe" type="password" placeholder="votre mot de passe"
-        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" title="au moins 8 caractères, un caractère majuscule et minuscule et un numéro"/>
-    </label>
-    <br/>
-    <input type="submit" value="Envoyer">
-</form>
 </div>
+
+<div class="split lefty">
+
+    <div class="centered">
+
+<div id="connexion_form">
+
+
+    <form action="ProchainePage" method="post">
+
+        <div class="col1">
+            <label>
+
+                <input name="prenom" type="text" placeholder="votre prénom"/>
+            </label>
+
+            <label>
+                <input name="nom" type="text" placeholder="votre nom"/>
+            </label>
+        </div>
+
+        <label>
+            <input name="adresse_civique" type="text" placeholder="votre adresse civique"/>
+        </label>
+        <br/>
+
+
+        <label>
+            <input name="num_tel" type="tel" placeholder="votre numéro de téléphone"/>
+        </label>
+
+
+        <br/>
+        <label>
+            <input name="adresse_courriel" type="email" placeholder="votre courriel"/>
+        </label>
+        <br/>
+        <label>
+            <input name="mot_de_passe" type="password" placeholder="votre mot de passe"/>
+        </label>
+        <br/>
+        <input type="submit" value="S'inscrire">
+    </form>
+</div>
+</div>
+</div>
+
+
+
+
 </body>
 </html>

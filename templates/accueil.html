@@ -5,31 +5,35 @@
     <meta charset="UTF-8">
     <title>Accueil</title>
 
-    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/style_general.css">
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<div>
-<ul>
-    <li><a href="../templates/inscription.html">s'inscrire</a></li>
-    <li><a href="../templates/accueil.html">Accueil</a></li>
 
-</ul>
-
-
-</div>
+<nav class="navbar">
+    <ul>
+        <li><a href="/annonce/2">detail</a></li>
+        <li><a href="/inscription">s'inscrire</a></li>
+        <li><a href="/connexion">se connecter</a></li>
+        <li><a href="/">Accueil</a></li>
+    </ul>
+</nav>
 
 
 <div id="img_div">
 
 
+    <img src="https://images.pexels.com/photos/5706220/pexels-photo-5706220.jpeg?" alt="">
+</div>
 
-<img src="https://images.pexels.com/photos/5706220/pexels-photo-5706220.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
-</div >
-
-    <div id="research_box">
+<div id="research_box">
 
 
-    <form method="post" action ='#'>
+    <form method="post" action='#'>
         <label>
 
             <input name="mot_cle" type="search" placeholder="mots-clés"/>
@@ -40,17 +44,19 @@
         <label>
             <select id="category_selector" name="catégorie">
                 <option value="jeunesse">jeunesse</option>
+                <option value="histoire">histoire</option>
                 <option value="bande dessinee">bande dessinée</option>
                 <option value="voyage">voyage</option>
                 <option value="scolaire">scolaire</option>
-            </select>        </label>
+            </select> </label>
 
         <label for="search_button">
-        </label><input id="search_button" value="icon">
+        </label>
+        <button type="submit" id="search_button"><i class="fas fa-search"></i></button>
+
     </form>
 
-
-    </div>
+</div>
 
 
 </body>
