@@ -14,14 +14,29 @@
 </head>
 <body>
 
-<nav class="navbar">
-    <ul>
-        <li><a href="/annonce/2">detail</a></li>
-        <li><a href="/inscription">s'inscrire</a></li>
-        <li><a href="/connexion">se connecter</a></li>
-        <li><a href="/">Accueil</a></li>
-    </ul>
-</nav>
+{% if session.loggedin %}
+
+    <nav>
+
+        <h5> </h5>
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+        </ul>
+    </nav>
+
+{% else %}
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/annonce/2">detail</a></li>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </nav>
+
+{% endif %}
 
 
 <div id="img_div">
@@ -33,21 +48,47 @@
 <div id="research_box">
 
 
-    <form method="post" action='#'>
+    <form method="post" action='recherche'>
         <label>
 
-            <input name="mot_cle" type="search" placeholder="mots-clés"/>
+            <input name="mot_cle" type="search" style="width: 300px"  placeholder="mots-clés"/>
         </label>
-        <label>
-            <input name="localisation" type="search" placeholder="localisation"/>
-        </label>
+
         <label>
             <select id="category_selector" name="catégorie">
-                <option value="jeunesse">jeunesse</option>
-                <option value="histoire">histoire</option>
-                <option value="bande dessinee">bande dessinée</option>
-                <option value="voyage">voyage</option>
-                <option value="scolaire">scolaire</option>
+               <option value="Fiction">Fiction</option>
+<option value="Non-fiction">Non-fiction</option>
+<option value="Romans">Romans</option>
+<option value="Thriller">Thriller</option>
+<option value="Science-fiction">Science-fiction</option>
+<option value="Fantaisie">Fantaisie</option>
+<option value="Mystère">Mystère</option>
+<option value="Horreur">Horreur</option>
+<option value="Biographie">Biographie</option>
+<option value="Autobiographie">Autobiographie</option>
+<option value="Poésie">Poésie</option>
+<option value="Drame">Drame</option>
+<option value="Humour">Humour</option>
+<option value="Histoire">Histoire</option>
+<option value="Science">Science</option>
+<option value="Philosophie">Philosophie</option>
+<option value="Art">Art</option>
+<option value="Cuisine">Cuisine</option>
+<option value="Voyage">Voyage</option>
+<option value="Religion">Religion</option>
+<option value="Spiritualité">Spiritualité</option>
+<option value="Éducation">Éducation</option>
+<option value="Affaires">Affaires</option>
+<option value="Finance">Finance</option>
+<option value="Santé">Santé</option>
+<option value="Mode de vie">Mode de vie</option>
+<option value="Sport">Sport</option>
+<option value="Technologie">Technologie</option>
+<option value="Jeunesse">Jeunesse</option>
+<option value="Aventure">Aventure</option>
+<option value="Classique">Classique</option>
+<option value="Théâtre">Théâtre</option>
+<option value="Fantastique">Fantastique</option>
             </select> </label>
 
         <label for="search_button">

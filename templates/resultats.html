@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats de la recherche</title>
+
+
+</head>
+<body  >
+
+{% if session.loggedin %}
+
+    <nav>
+
+        <h5> </h5>
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+        </ul>
+    </nav>
+
+{% else %}
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/annonce/2">detail</a></li>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </nav>
+
+{% endif %}
+
+
+<h1>Résultats de la recherche</h1>
+{% if annonces %}
+    <div style=" display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centrage vertical */
+            align-items: center">
+    {% for annonce in annonces %}
+
+        <div style="width: 867px; height: 269px; position: relative; margin-bottom: 20px">
+            <div style="width: 867px; height: 269px; left: 0px; top: 0px; position: absolute; background: white; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px; border: 2px black solid"></div>
+            <div style="width: 85px; height: 50px; left: 750px; top: 199px; position: absolute; color: black; font-size: 28px; font-family: Roboto,serif; font-weight: 500; word-wrap: break-word">{{ annonce.prix }}$
+            </div>
+            <img style="width: 200px; height: 200px; left: 34px; top: 34px; position: absolute; border-radius: 25px"
+                 src="https://via.placeholder.com/200x200"/>
+            <div style="width: 300px; height: 50px; left: 284px; top: 35px; position: absolute; color: black; font-size: 28px; font-family: Roboto,serif; font-weight: 500; word-wrap: break-word">{{ annonce.titre_annonce }}</div>
+            <div style="width: 565px; height: 97px; left: 284px; top: 82px; position: absolute; color: black; font-size: 18px; font-family: Roboto,serif; font-weight: 300; word-wrap: break-word">{{ annonce.description }}</div>
+        </div>
+    {% endfor %}
+
+{% else %}
+    <p>Aucun résultat trouvé.</p>
+{% endif %}
+
+</div>
+</body>
+</html>

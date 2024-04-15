@@ -78,14 +78,16 @@
     </style>
 </head>
 <body>
-<nav class="navbar">
+
+{% if annonce %}
+    <nav class="navbar">
     <ul>
         <li><a href="/inscription">s'inscrire</a></li>
         <li><a href="/connexion">se connecter</a></li>
         <li><a href="/">Accueil</a></li>
     </ul>
 </nav>
-{% if annonce %}
+
     <div class="container">
         <h1>Annonce</h1>
         <h5>{{ annonce[8] }}</h5>

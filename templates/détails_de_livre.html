@@ -111,6 +111,30 @@
 </head>
 
 <body>
+{% if session.loggedin %}
+
+    <nav>
+
+        <h5> </h5>
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+        </ul>
+    </nav>
+
+{% else %}
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/annonce/2">detail</a></li>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </nav>
+
+{% endif %}
+
     <div class="background-image"></div>
     <header>
         <div class="banner">
