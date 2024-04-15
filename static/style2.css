@@ -1,0 +1,13 @@
+.flex-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.annonce{
+    border-style: solid;
+    padding: 10px;
+    margin: 10px;
+    list-style-type: none;
+    border-radius: 10px;
+    width: 35%;
+}
