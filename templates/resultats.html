@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles1.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats de la recherche</title>
+
+    <style>#filters {
+            margin-top: 80px;
+
+        top: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.button-group {
+    margin-top: 10px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.row {
+    display: flex;
+}
+
+.col {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.col:last-child {
+    margin-right: 0;
+}
+
+    </style>
+
+
+</head>
+<body  >
+
+{% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+
+
+
+<div id="filters">
+    <form id="filterForm" method="post" action="recherche" >
+        <div class="form-group">
+            <label for=titre_annonce>titre de l'annonce:</label>
+            <input type="text" id="titre_annonce" name="titre_annonce">
+        </div>
+
+        <div class="form-group">
+            <label for="etat">État:</label>
+            <select id="etat" name="etat">
+                    <option value="">Sélectionnez un état</option>
+
+                <option value="Neuf">Neuf</option>
+                <option value="Usagé">Usagé</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Genre:</label>
+            <select id="genre" name="genre">
+                    <option value="">Sélectionnez un genre</option>
+
+                <option value="Fiction">Fiction</option>
+                <option value="Non-fiction">Non-fiction</option>
+                <!-- Ajoutez d'autres options en fonction de vos genres -->
+            </select>
+        </div>
+
+        <div class="form-group row">
+            <div class="col">
+                <label for="prix_min">Prix minimum:</label>
+                <input type="number" id="prix_min" name="prix_min">
+            </div>
+            <div class="col">
+                <label for="prix_max">Prix maximum:</label>
+                <input type="number" id="prix_max" name="prix_max">
+            </div>
+        </div>
+
+        <button type="submit" >Appliquer</button>
+    </form>
+</div>
+
+
+
+
+<h1>Résultats de la recherche</h1>
+{% if annonces %}
+    <div style=" display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centrage vertical */
+            align-items: center">
+    {% for annonce in annonces %}
+    <a href="{{ url_for('retourner_colonne', id_annonce=annonce.id_annonce) }}">
+
+        <div style="width: 867px; height: 269px; position: relative; margin-bottom: 20px">
+            <div style="width: 867px; height: 269px; left: 0px; top: 0px; position: absolute; background: white; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px; border: 2px black solid"></div>
+            <div style="width: 85px; height: 50px; left: 750px; top: 199px; position: absolute; color: black; font-size: 28px; font-family: Roboto,serif; font-weight: 500; word-wrap: break-word">{{ annonce.prix }}$
+            </div>
+            <img style="width: 200px; height: 200px; left: 34px; top: 34px; position: absolute; border-radius: 25px"
+                 src="https://via.placeholder.com/200x200"/>
+            <div style="width: 300px; height: 50px; left: 284px; top: 35px; position: absolute; color: black; font-size: 28px; font-family: Roboto,serif; font-weight: 500; word-wrap: break-word">{{ annonce.titre_annonce }}</div>
+            <div style="width: 565px; height: 97px; left: 284px; top: 82px; position: absolute; color: black; font-size: 18px; font-family: Roboto,serif; font-weight: 300; word-wrap: break-word">{{ annonce.description }}</div>
+        </div>
+    </a>
+    {% endfor %}
+
+{% else %}
+    <p>Aucun résultat trouvé.</p>
+{% endif %}
+
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur</title>
+    <link rel="stylesheet" href="../static/styles1.css">
+
+</head>
+
+<body>
+{% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+<h3>Profil Utilisateur</h3>
+<div id="user_profile">
+    <h2>Informations Personnelles</h2>
+    <ul>
+        <li><strong>Prénom:</strong> {{ informations_compte["prenom"] }}</li>
+        <li><strong>Nom:</strong> {{ informations_compte['nom'] }}</li>
+        <li><strong>Adresse Courriel:</strong> {{ informations_compte["courriel"] }}</li>
+        <li><strong>Adresse Civique:</strong> {{ informations_compte["adresse_civique"] }}</li>
+        <li><strong>Téléphone:</strong> {{ informations_compte['num_tel'] }}</li>
+    </ul>
+    <!-- Bouton de déconnexion -->
+    <button id="logout_button"  href="/logout">Se déconnecter</button>
+    <a href="/historique_achats" class="clickable-text">Voir l'historique d'achat</a>
+</div>
+</body>
+
+</html>

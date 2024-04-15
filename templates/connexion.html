@@ -6,19 +6,40 @@
     <title>Accueil</title>
 
     <link rel="stylesheet" href="../static/styles.css">
-    <link rel="stylesheet" href="../static/style_general.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
-<nav class="navbar">
-    <ul>
-        <li><a href="/inscription">s'inscrire</a></li>
-        <li><a href="/connexion">se connecter</a></li>
-        <li><a  href="/">Accueil</a></li>
-    </ul>
-</nav>
+{% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+
 
 
 <div class="split left">
@@ -26,10 +47,10 @@
     <div class="centered">
 <div id="connexion_form">
 
-    <form action="tentative_connexion">
+    <form action="/connexion_compte" method="POST">
         <br/>
         <label>
-            <input name="addresse_courriel" type="email" placeholder="votre courriel"/>
+            <input name="adresse_courriel" type="email" placeholder="votre courriel"/>
         </label>
         <br/>
         <label>
@@ -38,8 +59,12 @@
         <br/>
         <input type="submit" value="Se connecter">
     </form>
-    <h5>je n'ai pas de compte</h5>
-    </div>
+<div class="register-container">
+
+            <p><span class="register-text">Vous n'avez pas de compte?</span></p>
+            <p><a href="/inscription" style="text-decoration:none; color:indianred;">Inscrivez-vous ici</a></p>
+        </div>
+</div>
 </div>
 </div>
 

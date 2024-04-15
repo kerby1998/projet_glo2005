@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>publier une annonce</title>
+
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/style_general.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+
+    <style>
+
+        form {
+              position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+            width: 50%; /* Taille du formulaire */
+            margin: 0 auto; /* Centre le formulaire horizontalement */
+        }
+        label {
+            display: block; /* Affiche chaque label sur une nouvelle ligne */
+            margin-bottom: 10px; /* Espacement entre chaque label */
+        }
+        select, input[type="text"], textarea, input[type="number"] {
+            width: 100%; /* Étire les champs sur toute la largeur */
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box; /* Inclut le padding et le border dans la largeur */
+        }
+        .inline-fields {
+            display: flex; /* Affiche les champs sur la même ligne */
+            align-items: center; /* Centre les éléments verticalement */
+            align-content: space-between;
+            gap: 1em;
+        }
+        .inline-fields label {
+            flex: 1; /* Répartit l'espace disponible entre les labels */
+            margin-right: 10px; /* Espacement entre les labels */
+        }
+        .inline-fields select {
+            flex: 2; /* Répartit l'espace disponible entre les menus déroulants */
+        }
+        input[type="submit"] {
+            width: auto; /* Réinitialise la largeur du bouton */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+ {% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+
+    <form action="/publier_annonce" method="POST">
+        <label for="titre_annonce">Titre de l'annonce :</label>
+        <input type="text" id="titre_annonce" name="titre_annonce" required>
+
+        <label for="description">Description :</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+
+        <div class="inline-fields">
+            <select id="etat" name="etat" required>
+                <option value="Neuf">Neuf</option>
+                <option value="Usagé">Usagé</option>
+            </select>
+
+            <select id="genre" name="genre" required style="flex: 2;">
+                <option value="Fiction">Fiction</option>
+                <option value="Non-fiction">Non-fiction</option>
+            </select>
+        </div>
+
+        <label for="prix">Prix :</label>
+        <input type="number" id="prix" name="prix" min="0" step="0.01" required>
+
+
+        <label for="images">Images :</label>
+        <input type="file" id="images" name="images" multiple accept="image/*"><br><br>
+
+        <div id="carousel" style="display: none;">
+        </div>
+
+
+
+        <input type="submit" value="Ajouter l'annonce">
+    </form>
+
+ <script>
+        function ajouterImage() {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'images';
+            input.accept = 'image/*';
+            document.getElementById('annonceForm').appendChild(input);
+        }
+
+        function afficherCarrousel(images) {
+            let carousel = document.getElementById('carousel');
+            carousel.innerHTML = '';
+
+    for (let i = 0; i < images.length; i++) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(images[i]);
+        img.style.width = '100px';
+        img.style.height = '100px';
+        carousel.appendChild(img);
+    }
+
+    carousel.style.display = 'block';
+}
+
+document.getElementById('images').addEventListener('change', function() {
+    const images = Array.from(this.files);
+    afficherCarrousel(images);
+});
+
+    </script>
+
+
+</body>
+</html>

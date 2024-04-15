@@ -6,20 +6,40 @@
     <title>Accueil</title>
 
     <link rel="stylesheet" href="../static/styles.css">
-    <link rel="stylesheet" href="../static/style_general.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
+  {% if session.loggedin %}
 
-<nav class="navbar">
-    <ul>
-        <li><a href="/inscription">s'inscrire</a></li>
-        <li><a href="/connexion">se connecter</a></li>
-        <li><a href="/">Accueil</a></li>
-    </ul>
-</nav>
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+
 
 <div  class="split righty" >
 
@@ -32,7 +52,7 @@
 <div id="connexion_form">
 
 
-    <form action="ProchainePage" method="post">
+    <form action="inscription" method="post">
 
         <div class="col1">
             <label>

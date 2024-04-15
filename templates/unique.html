@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+    <meta charset="UTF-8">
+    <title>annonce unique</title>
+</head>
+<body>
+
+{% if annonce %}
+
+   {% if session.loggedin %}
+
+    <navbar class="navbar">
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </nav>
+
+{% endif %}
+
+
+
+
+    <div style="width: 846px; height: 996px; position: absolute ; top: 65%;
+    left: 50%;
+    margin-top: 50px;
+    transform: translate(-50%, -50%);">
+        <div style="width: 846px; height: 996px; left: 0px; top: 0px; position: absolute; "></div>
+        <div style="width: 699px; height: 433px; left: 66px; top: 91px; position: absolute; background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%); border-radius: 20px"></div>
+        <div style="width: 545px; height: 35px; left: 66px; top: 51px; position: absolute; color: black; font-size: 28px; font-family: Roboto; font-weight: 500; word-wrap: break-word">
+           {{  annonce['titre_annonce']}}
+        </div>
+        <div style="width: 171px; height: 31px; left: 582px; top: 60px; position: absolute; text-align: right; color: black; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+          {{   annonce['date_affichage']}}
+        </div>
+        <div style="width: 699px; height: 223px; left: 66px; top: 649px; position: absolute; color: black; font-size: 22px; font-family: Roboto; font-weight: 400; word-wrap: break-word">
+           {{  annonce['description']}}
+        </div>
+       <div style="width: 50px; height: 50px; left: 702px; top: 104px; position: absolute; background: white; border-radius: 9999px">
+    <div
+        class= "fas fa-bookmark" width="40" height="40" viewBox="0 0 24 24" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+    </div>
+</div>
+        <div style="width: 700px; height: 88px; left: 66px; top: 554px; position: absolute">
+            <div style="width: 187.02px; height: 50px; left: 0px; top: 0px; position: absolute; color: black; font-size: 15px; font-family: Roboto; font-weight: 300; word-wrap: break-word">
+                état
+            </div>
+            <div style="width: 187.02px; height: 50px; left: 170.99px; top: 0px; position: absolute; color: black; font-size: 15px; font-family: Roboto; font-weight: 300; word-wrap: break-word">
+                statut
+            </div>
+            <div style="width: 187.02px; height: 50px; left: 341.98px; top: 0px; position: absolute; color: black; font-size: 15px; font-family: Roboto; font-weight: 300; word-wrap: break-word">
+                genre
+            </div>
+            <div style="width: 187.02px; height: 50px; left: 512.98px; top: 0px; position: absolute; color: black; font-size: 15px; font-family: Roboto; font-weight: 300; word-wrap: break-word">
+                publié le
+            </div>
+            <div style="width: 187.02px; height: 50px; left: 0px; top: 38px; position: absolute; color: black; font-size: 20px; font-family: Roboto; font-weight: 500; word-wrap: break-word">
+                {{ annonce['etat']}}
+            </div>
+            <div style="width: 187.02px; height: 50px; left: 170.99px; top: 38px; position: absolute; color: black; font-size: 20px; font-family: Roboto; font-weight: 500; word-wrap: break-word">
+              {{   annonce['statut']}}
+            </div>
+            <div style="width: 187.02px; height: 50px; left: 341.98px; top: 38px; position: absolute; color: black; font-size: 20px; font-family: Roboto; font-weight: 500; word-wrap: break-word">
+                {{  annonce['genre']}}
+            </div>
+            <div style="width: 187.02px; height: 50px; left: 512.98px; top: 38px; position: absolute; color: black; font-size: 20px; font-family: Roboto; font-weight: 500; word-wrap: break-word">
+               {{  annonce['date_affichage']}}]
+            </div>
+        </div>
+        <div style="width: 101px; height: 80px; left: 612px; top: 803px; position: absolute; text-align: right; color: black; font-size: 30px; font-family: Roboto; font-weight: 500; word-wrap: break-word">
+            {{ annonce['prix']}}
+        </div>
+        <div style="width: 53px; height: 90px; left: 690px; top: 798px; position: absolute; text-align: right; color: black; font-size: 30px; font-family: Roboto; font-weight: 500; word-wrap: break-word">
+            $
+        </div>
+    </div>
+
+{% else %}
+    <p>Aucune annonce trouvée avec cet ID</p>
+{% endif %}
+</body>
+</html>

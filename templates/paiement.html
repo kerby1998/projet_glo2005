@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement</title>
+    <link rel="stylesheet" href="../static/styles1.css">
+
+</head>
+
+<body>
+  {% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+    <div class="paiement-container">
+        <h2>Passer à la caisse</h2>
+        <hr>
+        <h3>Adresse de livraison</h3>
+        <form action="/traiter_commande" method="POST">
+            <div style="display: flex;">
+                <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
+                <input type="text" id="nom" name="nom" placeholder="Nom de famille" required>
+            </div>
+            <div style="display: flex;">
+                <input type="tel" id="telephone" name="telephone" placeholder="Téléphone" required>
+                <input type="email" id="email" name="email" placeholder="Adresse courriel" required>
+            </div>
+            <input type="text" id="adresse" name="adresse" placeholder="Adresse de livraison" required>
+            <input type="text" id="code_postal" name="code_postal" placeholder="Code postal" required>
+            <hr>
+            <h3>Mode de paiement</h3>
+            <input type="text" id="num_carte" name="num_carte" placeholder="Numéro de la carte" required>
+            <div style="display: flex;">
+                <input type="text" id="date_exp" name="date_exp" placeholder="MM" style="width: 40px;" required>
+                <input type="text" style="margin-left: 10px; width: 60px;" placeholder="AA" required>
+                <input type="text"  id="cvc" name="cvc" placeholder="CVV/CVC" style="margin-left: 10px; width: 80px" required>
+            </div>
+            <hr>
+            <input type="submit" value="Enregistrer et continuer">
+        </form>
+    </div>
+</body>
+
+</html>

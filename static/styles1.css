@@ -1,0 +1,525 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.en-vols.com/wp-content/uploads/afmm/2022/02/livres-ouverts_shutterstock_1840804387.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px);
+            z-index: -1;
+        }
+header {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+
+.navbar ul {
+    height: 50px;
+    float: right;
+   list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #fcfcfc;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.navbar li:last-child {
+    margin-left: auto;
+    position: absolute;
+    left: 0;
+    border: none;
+}
+
+
+
+.navbar li {
+    border-right: 1px solid #bbb;
+}
+
+
+li a {
+    float: right;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    color: darksalmon;
+    transition: all 300ms ease-in-out;
+
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.banner h1 {
+    margin: 0;
+}
+/*
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}*/
+
+main {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 80%;
+    height: 300px;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Fond noir transparent */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-decoration-color: white;
+}
+
+.question {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.answer {
+    margin-bottom: 20px;
+    color: white;
+}
+
+.cart-container {
+    max-width: 800px;
+    margin: 85px auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Fond noir transparent */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.item {
+    margin-bottom: 20px;
+}
+
+.item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-details img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.item-details .name {
+    font-weight: bold;
+}
+
+.item-details .price {
+    font-size: 18px;
+}
+
+.paiement-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7); /* Couleur de fond noir transparent */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.recherche-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    height: 300px;
+}
+
+.slogan {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 20px;
+    margin-left: 20%;
+    color: white; /* Couleur du texte de slogan */
+    width: 60%;
+    position: absolute;
+    top: 20%;
+    transform: translateY(-50%);
+    line-height: 1.5;
+}
+
+.search-boite {
+    margin-top: 190px ;
+}
+
+.search-box h2 {
+    margin-top: 0;
+}
+
+.search-box input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.search-box input[type="submit"] {
+    width: 15%;
+    padding: 10px;
+    background-color: black;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-box input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+ .text-size-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: transparent;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.text-size-btn:hover {
+    color: #666;
+}
+
+#decrease-text-size {
+    margin-right: 40px;
+}
+
+.login-container {
+    max-width: calc(50% + 200px);
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#register_form {
+    background-color: rgba(0, 0, 0, 0.7); /* Couleur de fond noir transparent */
+    max-width: 400px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white; /* Couleur du texte en blanc */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 20px); /* Largeur ajustée */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Espacement plus grand entre les champs */
+}
+
+.favoris-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7); /* Couleur de fond noir transparent */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+.favoris-list {
+    margin-top: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.favoris-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #fff;
+}
+
+.favoris-item:last-child {
+    border-bottom: none;
+}
+
+.favoris-item .title {
+    flex: 1;
+}
+
+.favoris-item .action {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.log-container {
+    max-width: calc(50% + 200px);
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login_form,
+.register-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Couleur de fond noir transparent */
+    max-width: 400px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white; /* Couleur du texte en blanc */
+}
+
+label {
+    display: block;
+    margin-bottom: 20px; /* Espacement plus grand entre les champs */
+}
+
+.register-container {
+    text-align: center;
+    margin-top: 20px; /* Espacement entre la boîte de connexion et le lien d'inscription */
+}
+
+.register-text {
+    font-weight: bold; /* Texte plus gras */
+    font-size: larger; /* Taille de police plus grande */
+}
+
+#user_profile {
+    background-color: rgba(0, 0, 0, 0.7);
+    max-width: 600px;
+    min-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    position: relative; /* Ajout de position relative */
+}
+
+h2 {
+    color: #fff;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/*
+li {
+    margin-bottom: 10px;
+}
+*/
+strong {
+    font-weight: bold;
+}
+
+/* Style du bouton de déconnexion */
+#logout_button {
+    position: absolute; /* Changement en position absolue */
+    bottom: 10px; /* Décalage du bas */
+    right: 10px; /* Décalage de la droite */
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#logout_button:hover {
+    background-color: #45a049;
+}
+ .clickable-text {
+    position: absolute; /* Position absolue */
+    bottom: 10px; /* Décalage du bas */
+    left: 20px; /* Décalage de la gauche */
+    color: white; /* Couleur du texte */
+    text-decoration: underline; /* Soulignement */
+    cursor: pointer; /* Curseur au survol */
+}
+
+ h3 {
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+
+ .annonce-container {
+    margin: 20px;
+    padding-top: 0; /* Ajoutez un padding-top pour compenser la hauteur du header */
+}
+
+.search-box,
+.publish-form {
+    margin-bottom: 20px;
+}
+
+.search-box label,
+.publish-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.search-box input[type="text"],
+.search-box input[type="number"],
+.publish-form input[type="text"],
+.publish-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.search-box input[type="submit"],
+.publish-form button {
+    width: 15%;
+    padding: 10px;
+    background-color: black;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-box input[type="submit"]:hover,
+.publish-form button:hover {
+    background-color: #0056b3;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.annonce {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: calc(33.33% - 20px);
+}
+
+.annonce img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.buttons button {
+    margin-right: 10px;
+}
+
+.filtre_genre {
+
+    border-style: solid;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 10px;
+    margin: 15px;
+}
+
+

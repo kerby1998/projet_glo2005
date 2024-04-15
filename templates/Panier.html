@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier</title>
+    <link rel="stylesheet" href="../static/styles1.css">
+</head>
+
+<body>
+ {% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+
+    <div class="cart-container">
+        {% for annonce in details_panier %}
+        <div class="item">
+            <div class="item-details">
+                <div class="name">{{ annonce[0] }}</div>
+                <div class="price">{{ annonce[1] }}</div>
+            </div>
+            <form action="/supprimer_annonce_panier" method="post">
+                    <input type="hidden" name="id_panier" value="{{ annonce[3] }}">
+                    <input type="hidden" name="id_annonce" value="{{ annonce[2] }}">
+                    <button type="submit">Retirer</button>
+            </form>
+        </div>
+        {% endfor %}
+
+        <button id="checkout-btn"> Passer la commande</button>
+    </div>
+    <script>
+        document.getElementById("checkout-btn").addEventListener("click", function() {
+            // Redirection vers la page de paiement
+            window.location.href = "/paiement";
+        });
+    </script>
+</body>
+
+</html>

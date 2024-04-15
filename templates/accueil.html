@@ -4,24 +4,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Accueil</title>
-
     <link rel="stylesheet" href="../static/styles.css">
-    <link rel="stylesheet" href="../static/style_general.css">
-
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
-<nav class="navbar">
-    <ul>
-        <li><a href="/annonce/2">detail</a></li>
-        <li><a href="/inscription">s'inscrire</a></li>
-        <li><a href="/connexion">se connecter</a></li>
-        <li><a href="/">Accueil</a></li>
-    </ul>
-</nav>
+
+
+{% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
 
 
 <div id="img_div">
@@ -33,21 +50,49 @@
 <div id="research_box">
 
 
-    <form method="post" action='#'>
+    <form method="post" action='recherche'>
         <label>
 
-            <input name="mot_cle" type="search" placeholder="mots-clés"/>
+            <input id='titre_annonce' name="titre_annonce" type="text" style="width: 300px" placeholder="titre de l'annonce"/>
         </label>
+
         <label>
-            <input name="localisation" type="search" placeholder="localisation"/>
-        </label>
-        <label>
-            <select id="category_selector" name="catégorie">
-                <option value="jeunesse">jeunesse</option>
-                <option value="histoire">histoire</option>
-                <option value="bande dessinee">bande dessinée</option>
-                <option value="voyage">voyage</option>
-                <option value="scolaire">scolaire</option>
+            <select id="genre" name="genre">
+<option value="" disabled selected>Selectionner un genre</option>
+
+                <option value="Fiction">Fiction</option>
+                <option value="Non-fiction">Non-fiction</option>
+                <option value="Romans">Romans</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Science-fiction">Science-fiction</option>
+                <option value="Fantaisie">Fantaisie</option>
+                <option value="Mystère">Mystère</option>
+                <option value="Horreur">Horreur</option>
+                <option value="Biographie">Biographie</option>
+                <option value="Autobiographie">Autobiographie</option>
+                <option value="Poésie">Poésie</option>
+                <option value="Drame">Drame</option>
+                <option value="Humour">Humour</option>
+                <option value="Histoire">Histoire</option>
+                <option value="Science">Science</option>
+                <option value="Philosophie">Philosophie</option>
+                <option value="Art">Art</option>
+                <option value="Cuisine">Cuisine</option>
+                <option value="Voyage">Voyage</option>
+                <option value="Religion">Religion</option>
+                <option value="Spiritualité">Spiritualité</option>
+                <option value="Éducation">Éducation</option>
+                <option value="Affaires">Affaires</option>
+                <option value="Finance">Finance</option>
+                <option value="Santé">Santé</option>
+                <option value="Mode de vie">Mode de vie</option>
+                <option value="Sport">Sport</option>
+                <option value="Technologie">Technologie</option>
+                <option value="Jeunesse">Jeunesse</option>
+                <option value="Aventure">Aventure</option>
+                <option value="Classique">Classique</option>
+                <option value="Théâtre">Théâtre</option>
+                <option value="Fantastique">Fantastique</option>
             </select> </label>
 
         <label for="search_button">

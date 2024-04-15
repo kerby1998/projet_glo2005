@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annonces</title>
+    <link rel="stylesheet" href="../static/styles1.css">
+</head>
+
+<body>
+    {% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+
+    <div class="annonce-container">
+        <div class="container">
+            <label>Recherche par genre :</label>
+            <div class="filtre_genre">
+                <input type="checkbox" id="science-fiction" name="genre" value="Science-fiction">
+                <label for="science-fiction">Science-fiction</label><br>
+                <input type="checkbox" id="fantaisie" name="genre" value="Fantaisie">
+                <label for="fantaisie">Fantaisie</label><br>
+                <input type="checkbox" id="mystere" name="genre" value="Mystère">
+                <label for="mystere">Mystère</label><br>
+                <input type="checkbox" id="education" name="genre" value="Éducation">
+                <label for="education">Éducation</label><br>
+                <input type="checkbox" id="fiction" name="genre" value="Fiction">
+                <label for="fiction">Fiction</label><br>
+                <input type="checkbox" id="non-fiction" name="genre" value="Non-fiction">
+                <label for="non-fiction">Non-fiction</label><br>
+                <input type="checkbox" id="thriller" name="genre" value="Thriller">
+                <label for="thriller">Thriller</label><br>
+                <input type="checkbox" id="horreur" name="genre" value="Horreur">
+                <label for="horreur">Horreur</label><br>
+                <input type="checkbox" id="biographie" name="genre" value="Biographie">
+                <label for="biographie">Biographie</label><br>
+                <input type="checkbox" id="autobiographie" name="genre" value="Autobiographie">
+                <label for="autobiographie">Autobiographie</label><br>
+                <input type="checkbox" id="poesie" name="genre" value="Poésie">
+                <label for="poesie">Poésie</label><br>
+                <input type="checkbox" id="drame" name="genre" value="Drame">
+                <label for="drame">Drame</label><br>
+                <input type="checkbox" id="humour" name="genre" value="Humour">
+                <label for="humour">Humour</label><br>
+                <input type="checkbox" id="histoire" name="genre" value="Histoire">
+                <label for="histoire">Histoire</label><br>
+                <input type="checkbox" id="science" name="genre" value="Science">
+                <label for="science">Science</label><br>
+                <input type="checkbox" id="philosophie" name="genre" value="Philosophie">
+                <label for="philosophie">Philosophie</label><br>
+                <input type="checkbox" id="art" name="genre" value="Art">
+                <label for="art">Art</label><br>
+                <input type="checkbox" id="cuisine" name="genre" value="Cuisine">
+                <label for="cuisine">Cuisine</label><br>
+                <input type="checkbox" id="voyage" name="genre" value="Voyage">
+                <label for="voyage">Voyage</label><br>
+                <input type="checkbox" id="religion" name="genre" value="Religion">
+                <label for="religion">Religion</label><br>
+                <input type="checkbox" id="spiritualite" name="genre" value="Spiritualité">
+                <label for="spiritualite">Spiritualité</label><br>
+                <input type="checkbox" id="affaires" name="genre" value="Affaires">
+                <label for="affaires">Affaires</label><br>
+                <input type="checkbox" id="finance" name="genre" value="Finance">
+                <label for="finance">Finance</label><br>
+                <input type="checkbox" id="sante" name="genre" value="Santé">
+                <label for="sante">Santé</label><br>
+                <input type="checkbox" id="mode-de-vie" name="genre" value="Mode de vie">
+                <label for="mode-de-vie">Mode de vie</label><br>
+                <input type="checkbox" id="sport" name="genre" value="Sport">
+                <label for="sport">Sport</label><br>
+                <input type="checkbox" id="technologie" name="genre" value="Technologie">
+                <label for="technologie">Technologie</label><br>
+                <input type="checkbox" id="jeunesse" name="genre" value="Jeunesse">
+                <label for="jeunesse">Jeunesse</label><br>
+                <input type="checkbox" id="aventure" name="genre" value="Aventure">
+                <label for="aventure">Aventure</label><br>
+                <input type="checkbox" id="classique" name="genre" value="Classique">
+                <label for="classique">Classique</label><br>
+                <input type="checkbox" id="theatre" name="genre" value="Théâtre">
+                <label for="theatre">Théâtre</label><br>
+                <input type="checkbox" id="fantastique" name="genre" value="Fantastique">
+                <label for="fantastique">Fantastique</label><br>
+
+
+            </div>
+            <button onclick="filtrerAnnonces()">Filtrer par genre</button>
+        </div>
+
+
+
+
+        <div>
+            <label>Recherche par nom :</label>
+            <input id="mot-cle" type="text" placeholder="Effectuez une recherche">
+            <button onclick="rechercheMot()">Rechercher</button>
+        </div>
+        <div>
+            <button onclick="enleverFiltre()">Enlever filtre</button>
+        </div>
+
+
+
+        <div class="flex-container">
+            {% for annonce in annonces %}
+            <div class="annonce">
+                <ul>
+                    <li>Titre : {{annonce[2]}}</li>
+                    <li>Genre : {{annonce[5]}}</li>
+                    <li>Prix : {{annonce[6]}} $</li>
+                    <li>Vendeur : {{annonce[1]}}</li>
+                </ul>
+                <img src="{{ annonce[9] }}" alt="Image de l'annonce">
+                <div class="buttons">
+                    <button onclick="detailsAnnonce({{annonce[0]}})">Description</button>
+                    <button>Ajouter au panier</button>
+                    <button>Ajouter à la liste de souhaits</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function filtrerAnnonces() {
+            const genres = document.getElementsByName("genre");
+            const selectedGenres = [];
+            for (let i = 0; i < genres.length; i++) {
+                if (genres[i].checked) {
+                    selectedGenres.push(genres[i].value);
+                }
+            }
+            const genreQueryString = selectedGenres.join(",");
+            window.location.href = "/annonce/" + genreQueryString;
+        }
+
+        function enleverFiltre() {
+            window.location.href = "/annonce"
+        }
+
+        function rechercheMot() {
+            const mot_cle = document.getElementById('mot-cle').value;
+            window.location.href = "/annonce/mot-cle/" + mot_cle;
+        }
+    </script>
+
+
+    <button class="text-size-btn" id="decrease-text-size">-</button>
+    <button class="text-size-btn" id="increase-text-size">+</button>
+
+    <script>
+        // JavaScript pour augmenter la taille du texte
+        document.getElementById("increase-text-size").addEventListener("click", function() {
+            // Récupère la taille actuelle du texte
+            const currentFontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
+            // Augmente la taille du texte de 2 pixels
+            const newFontSize = currentFontSize + 2;
+            document.body.style.fontSize = newFontSize + "px"; // Augmente la taille du texte
+        });
+
+        // JavaScript pour diminuer la taille du texte
+        document.getElementById("decrease-text-size").addEventListener("click", function() {
+            // Récupère la taille actuelle du texte
+            const currentFontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
+            // Diminue la taille du texte de 2 pixels
+            const newFontSize = currentFontSize - 2;
+            document.body.style.fontSize = newFontSize + "px"; // Diminue la taille du texte
+        });
+    </script>
+</body>
+
+</html>

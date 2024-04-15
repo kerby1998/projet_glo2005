@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique des Achats</title>
+    <link rel="stylesheet" href="../static/styles1.css">
+
+</head>
+<body>
+ {% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+<div class="faq-container">
+    <h3>Historique des Achats</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Annonce</th>
+            <th>Montant</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for transaction in historique_achats %}
+        <tr>
+            <td>{{ transaction[0] }}</td>
+            <td>{{ transaction[2]}}</td>
+            <td>{{ transaction[1] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

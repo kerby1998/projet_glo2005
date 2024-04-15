@@ -1,146 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Librairie Infinie</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="../static/styles1.css">
 
-        .background-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('C:\\Users\\HP USER\\Desktop\\GLO-2005\\img_7f8b158998f152fc7ee4c06e38833edf.jpg'); /* Chemin de votre image d'arrière-plan */
-            background-size: cover;
-            background-position: center;
-            filter: blur(5px); /* Appliquer un flou à l'image */
-            z-index: -1; /* Placer l'image en arrière-plan */
-        }
-
-        header {
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .banner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .banner h1 {
-            margin: 0;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        main {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour la boîte de recherche */
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            width: 80%; /* Largeur de la zone de recherche */
-			height: 300px; /* Hauteur de la zone de recherche */
-        }
-
-        .search-box {
-            margin: 0 auto;
-        }
-
-        .search-box h2 {
-            margin-top: 0;
-        }
-
-        .search-box input[type="text"] {
-            width: 100%; /* Largeur de la barre de recherche */
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
-            border-radius: 5px; /* Coins arrondis */
-            border: 1px solid #ddd; /* Bordure */
-        }
-
-        .search-box input[type="submit"] {
-            width: 15%; /* Largeur du bouton de recherche */
-            padding: 10px;
-            background-color: black;
-            border: none;
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .search-box input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
+
 <body>
-    <div class="background-image"></div> <!-- Div pour l'image d'arrière-plan floue -->
-    <header>
-        <div class="banner">
-            <h1>Librairie Infinie</h1>
-            <nav>
-                <ul>
-                    <li><a href="page_recherche.html">Accueil</a></li>
-		    <li><a href="#" id="account-link">Mon Compte</a></li> <!-- vérifier connection avec compte-->
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="panier.html">Mon Panier</a></li>
-                </ul>
-            </nav>
+    {% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+
+{% endif %}
+    <div class="recherche-container">
+        <div class="slogan">
+        Bienvenue sur notre site de vente de livres neufs<br>et usagés en ligne. Trouvez votre prochaine lecture parmi notre vaste sélection !
         </div>
-    </header>
-    <main>
-        <div class="search-box">
-            <h2>Recherche</h2>
-            <form action="recherche.php" method="GET">
-                <input type="text" name="query" placeholder="Rechercher...">
+        <div class="search-boite">
+            <h2>Vous voulez faire une recherche?</h2>
+            <form action="/faire_recherche" method="GET">
                 <input type="submit" value="Rechercher">
             </form>
         </div>
-    </main>
-	
-	    <script>
-        document.getElementById("account-link").addEventListener("click", function(event) {
-            event.preventDefault(); // Empêcher le comportement de lien par défaut
+    </div>
 
-            // Vérifier si un compte est connecté (par exemple, vérifier une variable globale, localStorage, ou autre)
-            var isLoggedIn = false; // Mettre ici la logique de vérification de connexion
+    <button class="text-size-btn" id="decrease-text-size">-</button>
+    <button class="text-size-btn" id="increase-text-size">+</button>
 
-            // Rediriger en fonction de l'état de connexion
-            if (isLoggedIn) {
-                window.location.href = "mon_compte.html"; // Rediriger vers la page de compte si connecté
-            } else {
-                window.location.href = "connexion.html"; // Rediriger vers la page de connexion sinon
-            }
+    <script>
+        // JavaScript pour augmenter la taille du texte
+        document.getElementById("increase-text-size").addEventListener("click", function() {
+            // Récupère la taille actuelle du texte
+            var currentFontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
+            // Augmente la taille du texte de 2 pixels
+            var newFontSize = currentFontSize + 2;
+            document.body.style.fontSize = newFontSize + "px"; // Augmente la taille du texte
+        });
+
+        // JavaScript pour diminuer la taille du texte
+        document.getElementById("decrease-text-size").addEventListener("click", function() {
+            // Récupère la taille actuelle du texte
+            var currentFontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
+            // Diminue la taille du texte de 2 pixels
+            var newFontSize = currentFontSize - 2;
+            document.body.style.fontSize = newFontSize + "px"; // Diminue la taille du texte
         });
     </script>
 </body>
+
 </html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoris</title>
+    <link rel="stylesheet" href="../static/styles1.css">
+
+</head>
+
+<body>
+    {% if session.loggedin %}
+
+    <navbar class="navbar" >
+
+        <ul>
+            <li><a href="/logout">Déconnexion</a></li>
+            <li><a href="/mon_compte">Mon Compte</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/panier">Mon Panier</a></li>
+            <li><a href="/favoris">Mes Favoris</a></li>
+            <li><a href="/">Accueil</a></li>
+
+
+        </ul>
+    </navbar>
+
+{% else %}
+
+    <navbar class="navbar">
+        <ul>
+            <li><a href="/inscription">s'inscrire</a></li>
+            <li><a href="/connexion">se connecter</a></li>
+            <li><a href="/publier">publier</a></li>
+            <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
+
+{% endif %}
+    <div class="favoris-container">
+        <h2>Mes Favoris</h2>
+        <ul class="favoris-list">
+            {% for favoris in details_favoris %}
+            <li class="favoris-item">
+                <span class="title">{{ favoris[0] }}</span>
+                <form action="/ajouter_favoris_panier" method="post">
+                    <input type="hidden" name="id_panier" value="{{ favoris[2] }}">
+                    <input type="hidden" name="id_annonce" value="{{ favoris[1] }}">
+                    <input type="hidden" name="id_liste" value="{{ favoris[3] }}">
+                    <button type="submit">Ajouter au Panier</button>
+                </form>
+                <form action="/supprimer_favoris_panier" method="post">
+                    <input type="hidden" name="id_liste" value="{{ favoris[3] }}">
+                    <input type="hidden" name="id_annonce" value="{{ favoris[1] }}">
+                    <button type="submit">Retirer</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>

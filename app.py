@@ -1,14 +1,17 @@
 import pymysql
 from pymysql.cursors import DictCursor
-
-from flask import Flask, render_template, request, redirect, url_for, session
-from flask import render_template
+from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 
+from Requêtes import *
+import os
+import bcrypt
+
+secret_key = os.urandom(24)
 
 app = Flask(__name__)
 
-app.secret_key = 'roberto'
+app.secret_key = secret_key
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -22,92 +25,158 @@ mysql = pymysql.connect(
     db=app.config['MYSQL_DB']
 )
 
-
-def create_table():
-    try:
-        print('Creating Table Started =====')
-        cur = mysql.cursor()
-        cur.execute(
-            '''
-            CREATE TABLE IF NOT EXISTS items (
-                id INT AUTO_INCREMENT PRIMARY KEY ,
-                name VARCHAR(255) NOT NULL,
-                description TEXT
-            )
-            '''
-        )
-        mysql.commit()
-        cur.close()
-        print('Items Table Created =====')
-    except Exception as e:
-        print("Error while creating table", e)
+cursor = mysql.cursor(cursor=DictCursor)
 
 
 @app.route("/")
-def hello():
+def pageAccueil():
     return render_template('accueil.html')
 
 
+@app.route("/publier")
+def pagePublier():
+    try:
+        if 'adresse_courriel' in session:
+            return render_template('publier.html')
+        else:
+            return render_template("connexion.html")
+    except Exception as e:
+        return f"Une erreur s'est produite lors de la tentative de publication : {str(e)}"
+
+
 @app.route("/inscription")
-def index():
+def inscription():
+    return render_template('inscription.html')
+
+
+@app.route("/faq")
+def faq():
+    return render_template('faq.html')
+
+
+@app.route("/mon_panier")
+def mon_panier():
+    return render_template('panier.html')
+
+
+@app.route("/inscription")
+def pageInscription():
     return render_template('inscription.html')
 
 
 @app.route("/connexion")
-def connect():
+def pageConnexion():
     return render_template('connexion.html')
 
 
-@app.route('/tentative_connexion', methods=['GET', 'POST'])
-def login():
-    # Output a message if something goes wrong...
-    msg = ''
-    # Check if "username" and "password" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        # Create variables for easy access
-        addresse_courriel = request.form['username']
-        mot_de_passe = request.form['password']
-        # Check if account exists using MySQL
-        mysql.cursor().execute('SELECT * FROM utilisateurs WHERE adresse_courriel = %s AND mot_de_passe = %s', (addresse_courriel, mot_de_passe,))
-        # Fetch one record and return result
-        account = mysql.cursor().fetchone
-        # If account exists in accounts table in out database
-        if account:
-            # Create session data, we can access this data in other routes
+@app.route('/connexion_compte', methods=['POST'])
+def connexion_au_compte():
+    # Connexion au compte d'un utilisateur existant
+
+    adresse_courriel = request.form['adresse_courriel']
+    mot_de_passe = request.form['mot_de_passe']
+
+    cursor.execute("SELECT mot_de_passe FROM Utilisateurs WHERE adresse_courriel = %s", (adresse_courriel,))
+    result = cursor.fetchone()
+
+    if result:
+        mot_de_passe_chiffre = result['mot_de_passe']
+
+        if bcrypt.checkpw(mot_de_passe.encode('utf-8'), mot_de_passe_chiffre.encode('utf-8')):
+            session['adresse_courriel'] = adresse_courriel
             session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
-            # Redirect to home page
-            return 'Logged in successfully!'
+            cursor.execute(
+                "SELECT adresse_courriel,prenom,nom,adresse_civique,num_tel FROM Utilisateurs WHERE adresse_courriel = %s",
+                (adresse_courriel,))
+            result2 = cursor.fetchone()
+            return render_template('compte.html', informations_compte=result2)
         else:
-            # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect username/password!'
-    # Show the login form with message (if any)
-    return render_template('accueil.html', msg=msg)
+            return 'Adresse courriel ou mot de passe invalide.'
 
-@app.route("/ProchainePage", methods=['POST', 'GET'])
-def ProchainePage():
-    prenom = request.form.get('prenom')
-    nom = request.form.get('nom')
-    adresse_courriel = request.form.get('adresse_courriel')
-    mot_de_passe = request.form.get('mot_de_passe')
-    num_tel = request.form.get('num_tel')
-    adresse_civique = request.form.get('adresse_civique')
+    else:
+        return 'Adresse courriel ou mot de passe invalide.'
 
-    hash = mot_de_passe + app.secret_key
-    hash = hashlib.sha1(hash.encode())
-    mot_de_passe = hash.hexdigest()
 
-    # Execute database insertion
-    mysql.cursor().execute(
-        "INSERT INTO `utilisateurs` (prenom,nom,`adresse_courriel`, `mot_de_passe`, `num_tel`, `adresse_civique`) VALUES (%s,%s, %s, %s, %s, %s)",
-        (prenom,nom, adresse_courriel, mot_de_passe, num_tel, adresse_civique)
-    )
+def chiffrer_mot_de_passe(mot_de_passe):
+    return bcrypt.hashpw(mot_de_passe.encode('utf-8'), bcrypt.gensalt())
 
-    mysql.commit()
-    mysql.cursor().close()
 
-    return render_template('accueil.html')
+@app.route('/inscription', methods=['POST'])
+def create_account():
+    # Création d'un compte pour un nouvel utilisateur
+    try:
+        prenom = request.form.get('prenom')
+        nom = request.form.get('nom')
+        adresse_courriel = request.form.get('adresse_courriel')
+        mot_de_passe = request.form.get('mot_de_passe')
+        adresse_civique = request.form.get('adresse_civique')
+        num_tel = request.form.get('num_tel')
+
+        mot_de_passe_chiffre = chiffrer_mot_de_passe(mot_de_passe)
+
+        mysql.cursor().execute(
+            'INSERT INTO Utilisateurs (adresse_courriel, prenom, nom, mot_de_passe, adresse_civique, num_tel) VALUES (%s, %s, %s, %s, %s, %s)',
+            (adresse_courriel, prenom, nom, mot_de_passe_chiffre, adresse_civique, num_tel)
+
+        )
+        mysql.commit()
+        mysql.cursor().close()
+
+        return render_template('connexion.html',
+                               message="Votre compte a été créé avec succès. Veuillez vous connecter.")
+
+    except Exception as e:
+        return f"Une erreur s'est produite lors de la création de votre compte : {str(e)}"
+
+
+@app.route('/recherche', methods=['GET', 'POST'])
+def rechercherAnnonces():
+    if request.method == 'POST':
+        args = []
+        titre = request.form.get('titre_annonce')
+        genre = request.form.get('genre')
+        etat = request.form.get('etat')
+        statut = request.form.get('statut')
+        prix_min = request.form.get('prix_min')
+        prix_max = request.form.get('prix_max')
+
+
+        query = "SELECT * FROM Annonces WHERE 1"
+
+
+        print(titre)
+
+        if genre:
+            query += " AND genre = %s"
+            args.append(genre)
+
+        if titre:
+            titre_recherche = f"%{titre}%"
+            query += " AND titre_annonce LIKE %s"
+            args.append(titre_recherche)
+
+        if etat:
+            query += " AND etat = %s"
+            args.append(etat)
+
+        if statut:
+            query += " AND statut = %s"
+            args.append(statut)
+
+        if prix_min:
+            query += " AND prix >= %s"
+            args.append(prix_min)
+
+        if prix_max:
+            query += " AND prix <= %s"
+            args.append(prix_max)
+
+        with mysql.cursor(cursor=DictCursor) as cursor:
+            cursor.execute(query, args)
+            annonces = cursor.fetchall()
+        return render_template('resultats.html', annonces=annonces)
+    return render_template('resultats.html')
+
 
 @app.route('/annonce/<int:id_annonce>')
 def retourner_colonne(id_annonce):
@@ -116,11 +185,252 @@ def retourner_colonne(id_annonce):
     annonces = cursor.fetchone()
     print(annonces)
     if annonces:
-        return render_template('detail.html', annonce=annonces)
+        return render_template('unique.html', annonce=annonces)
     else:
         return "Aucune annonce trouvée avec cet ID"
 
 
+@app.route('/mon_compte', methods=['GET'])
+def mon_compte():
+    try:
+        # Vérification si l'utilisateur est connecté
+        if 'adresse_courriel' in session:
+            # Récupération des informations de compte de l'utilisateur depuis la session
+            adresse_courriel = session['adresse_courriel']
+            cursor.execute(
+                "SELECT adresse_courriel,prenom,nom,adresse_civique,num_tel FROM Utilisateurs WHERE adresse_courriel = %s",
+                (adresse_courriel,))
+            result = cursor.fetchone()
+            return render_template('compte.html', informations_compte=result)
+        else:
+            return render_template("connexion.html")
+
+    except Exception as e:
+        return f"Une erreur s'est produite lors de la récupération des informations de compte : {str(e)}"
+
+
+@app.route('/panier', methods=['GET'])
+def details_panier():
+    try:
+        if 'adresse_courriel' in session:
+            adresse_courriel = session['adresse_courriel']
+            # Sélectionner les détails des annonces dans le panier de l'utilisateur
+            request = """
+            SELECT annonces.titre_annonce, annonces.prix, annonces.id_annonce, panier.id_panier
+            FROM PanierAnnonce 
+            JOIN annonces ON PanierAnnonce.annonce = annonces.id_annonce 
+            JOIN panier ON PanierAnnonce.panier = panier.id_panier
+            WHERE panier = (
+                SELECT id_panier 
+                FROM Panier 
+                WHERE adresse_utilisateur = '{}'
+            )
+            """.format(adresse_courriel)
+
+            cursor.execute(request)
+            details_panier = cursor.fetchall()
+
+            # Rendre le template HTML et passer les détails du panier
+            return render_template('panier.html', details_panier=details_panier)
+        else:
+            # Gérer le cas où l'utilisateur n'est pas connecté
+            # Redirection vers une page de connexion ou un message d'erreur
+            return render_template('connexion.html')  # Exemple de redirection vers une page de connexion
+    except Exception as e:
+        return f"Une erreur s'est produite lors du chargement du panier : {str(e)}"
+
+
+@app.route('/historique_achats', methods=['GET'])
+def historique_achats():
+    try:
+        if 'adresse_courriel' in session:
+            adresse_courriel = session['adresse_courriel']
+            # Sélectionner les détails des achats dans la table transaction
+            request = """
+            SELECT transactions.date, transactions.montant, annonces.titre_annonce
+            FROM transactions 
+            JOIN annonces ON transactions.id_annonce = annonces.id_annonce 
+            WHERE id_historique = (
+                SELECT id_historique
+                FROM historiques_transactions 
+                WHERE adresse_utilisateur = '{}'
+            )
+            """.format(adresse_courriel)
+
+            cursor.execute(request)
+            historique_achats = cursor.fetchall()
+
+            # Rendre le template HTML et passer les détails du panier
+            return render_template('historique_achat.html', historique_achats=historique_achats)
+        else:
+            # Gérer le cas où l'utilisateur n'est pas connecté
+            # Redirection vers une page de connexion ou un message d'erreur
+            return render_template('connexion.html')  # Exemple de redirection vers une page de connexion
+    except Exception as e:
+        return f"Une erreur s'est produite lors du chargement du panier : {str(e)}"
+
+
+@app.route("/annonce")
+@app.route("/annonce/mot-cle/")
+def annonce():
+    annonces = select_all_annonce()
+    return render_template("annonce(mise_en_page).html", annonces=annonces)
+
+
+@app.route("/annonce/<genre>")
+def annonce_par_genre(genre):
+    liste_genre = genre.split(",")
+    annonces = select_genre_annonce(liste_genre)
+    return render_template("annonce(mise_en_page).html", annonces=annonces)
+
+
+@app.route("/annonce/mot-cle/<mot_cle>")
+def recherche(mot_cle):
+    annonces = recherche_annonce(mot_cle)
+    return render_template("annonce(mise_en_page).html", annonces=annonces)
+
+
+@app.route('/annonces', methods=['GET'])
+def filter_annonces():
+    adresse_vendeur = request.args.get('adresse_vendeur')
+    etat = request.args.get('etat')
+    genre = request.args.get('genre')
+    query = "SELECT * FROM Annonces WHERE 1"
+    if adresse_vendeur:
+        query += " AND adresse_vendeur = '{}'".format(adresse_vendeur)
+    if etat:
+        query += " AND etat = '{}'".format(etat)
+    if genre:
+        query += " AND genre = '{}'".format(genre)
+
+    cursor.execute(query)
+    annonces = cursor.fetchall()
+    return jsonify(annonces)
+
+
+@app.route('/favoris', methods=['GET'])
+def select_details_favoris_utilisateur():
+    try:
+        if 'adresse_courriel' in session:
+            adresse_courriel = session['adresse_courriel']
+            # Sélectionner les détails des annonces dans la liste des favoris de l'utilisateur
+            request = """
+            SELECT annonces.titre_annonce, annonces.id_annonce, panier.id_panier, listes_souhaits.id_souhaits
+            FROM contenu_liste_souhaits 
+            JOIN Annonces ON contenu_liste_souhaits.id_annonce = Annonces.id_annonce
+            JOIN listes_souhaits ON contenu_liste_souhaits.id_liste = listes_souhaits.id_souhaits
+            JOIN panier ON listes_souhaits.adresse_utilisateur = panier.adresse_utilisateur
+            WHERE id_liste = (
+                SELECT id_souhaits 
+                FROM listes_souhaits 
+                WHERE adresse_utilisateur = '{}'
+            )
+            """.format(adresse_courriel)
+
+            cursor.execute(request)
+            details_favoris = cursor.fetchall()
+
+            return render_template('favoris.html', details_favoris=details_favoris)
+        else:
+            # Gérer le cas où l'utilisateur n'est pas connecté
+            # Redirection vers une page de connexion ou un message d'erreur
+            return render_template('connexion.html')
+    except Exception as e:
+        return f"Une erreur s'est produite lors du chargement du panier : {str(e)}"
+
+
+@app.route('/ajouter_favoris_panier', methods=['POST'])
+def ajouter_annonce_panier():
+    try:
+        id_panier = request.form['id_panier']
+        id_annonce = request.form['id_annonce']
+        id_liste = request.form['id_liste']
+        query = """INSERT INTO PanierAnnonce (panier, annonce) VALUES ("{}","{}")""".format(id_panier,
+                                                                                            id_annonce)
+
+        cursor.execute(query)
+        db_connection.commit()
+
+        # Retirer l'annonce de la liste de souhaits
+        query_souhaits = """DELETE FROM contenu_liste_souhaits WHERE id_annonce = {} AND id_liste = {}""".format(
+            id_annonce, id_liste)
+        cursor.execute(query_souhaits)
+        db_connection.commit()
+
+        return render_template('favoris.html')
+    except Exception as e:
+        return f"Une erreur s'est produite lors de l'ajout de l'annonce au panier : {str(e)}"
+
+
+@app.route('/publier_annonce', methods=['POST'])
+def publier_annonce():
+    try:
+        if 'adresse_courriel' in session:
+            titre = request.form['titre_annonce']
+            description = request.form['description']
+            etat = request.form['etat']
+            genre = request.form['genre']
+            prix = request.form['prix']
+            statut = 'disponible'
+            adresse_vendeur = session['adresse_courriel']
+            mysql.cursor().execute(
+                'INSERT INTO annonces (adresse_vendeur, titre_annonce, description, etat, genre, prix, statut) VALUES (%s,%s, %s, %s, %s, %s, %s)',
+                (adresse_vendeur, titre, description, etat, genre, prix, statut))
+        else:
+            return render_template('connexion.html')
+    except Exception as e:
+        return str(e)
+    else:
+        # Ajoutez ici la réponse que vous souhaitez retourner lorsque tout se déroule correctement
+        return redirect('/page_de_confirmation')  # Rediriger vers une page de confirmation après l'insertion
+
+
+
+
+
+
+
+
+
+
+@app.route('/supprimer_favoris_panier', methods=['POST'])
+def supprimer_favoris_panier():
+    try:
+        id_annonce = request.form['id_annonce']
+        id_liste = request.form['id_liste']
+        # Retirer l'annonce de la liste de souhaits
+        query_souhaits = """DELETE FROM contenu_liste_souhaits WHERE id_annonce = {} AND id_liste = {}""".format(
+            id_annonce, id_liste)
+        cursor.execute(query_souhaits)
+        db_connection.commit()
+
+        return render_template('favoris.html')
+    except Exception as e:
+        return f"Une erreur s'est produite lors de l'ajout de l'annonce au panier : {str(e)}"
+
+
+@app.route('/supprimer_annonce_panier', methods=['POST'])
+def supprimer_annonce_panier():
+    try:
+        id_panier = request.form['id_panier']
+        id_annonce = request.form['id_annonce']
+
+        query = """DELETE FROM PanierAnnonce WHERE annonce = {} AND panier = {}""".format(id_annonce, id_panier)
+
+        cursor.execute(query)
+        db_connection.commit()
+
+        return render_template('panier.html')
+    except Exception as e:
+        return f"Une erreur s'est produite lors de la suppression de l'annonce du panier : {str(e)}"
+
+
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('courriel', None)
+    return redirect(url_for('pageConnexion'))
+
+
 if __name__ == '__main__':
-    create_table()
     app.run()
