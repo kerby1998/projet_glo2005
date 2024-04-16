@@ -277,3 +277,25 @@ input[type=submit]:hover {
      "assets/svg/search.svg"
  }
 
+.text-size-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: transparent;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.text-size-btn:hover {
+    color: #666;
+}
+
+#decrease-text-size {
+    margin-right: 40px;
+}

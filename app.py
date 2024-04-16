@@ -362,28 +362,33 @@ def ajouter_annonce_panier():
         return f"Une erreur s'est produite lors de l'ajout de l'annonce au panier : {str(e)}"
 
 
+
+
+
 @app.route('/publier_annonce', methods=['POST'])
 def publier_annonce():
-    try:
-        if 'adresse_courriel' in session:
-            titre = request.form['titre_annonce']
-            description = request.form['description']
-            etat = request.form['etat']
-            genre = request.form['genre']
-            prix = request.form['prix']
-            statut = 'disponible'
-            adresse_vendeur = session['adresse_courriel']
-            mysql.cursor().execute(
-                'INSERT INTO annonces (adresse_vendeur, titre_annonce, description, etat, genre, prix, statut) VALUES (%s,%s, %s, %s, %s, %s, %s)',
-                (adresse_vendeur, titre, description, etat, genre, prix, statut))
-        else:
-            return render_template('connexion.html')
-    except Exception as e:
-        return str(e)
-    else:
-        # Ajoutez ici la réponse que vous souhaitez retourner lorsque tout se déroule correctement
-        return redirect('/page_de_confirmation')  # Rediriger vers une page de confirmation après l'insertion
+    if 'adresse_courriel' in session:
+        titre_annonce = request.form['titre_annonce']
+        adresse_vendeur = session['adresse_courriel']
+        description = request.form['description']
+        etat = request.form['etat']
+        genre = request.form['genre']
+        prix = request.form['prix']
+        images = request.files.getlist('images')
 
+        connection = mysql
+        cursor = connection.cursor()
+
+        # Exécution de la requête SQL pour insérer l'annonce dans la base de données
+        query = "INSERT INTO annonces (titre_annonce, description, etat, genre, prix, adresse_vendeur) VALUES (%s,%s, %s, %s, %s, %s)"
+        cursor.execute(query, (titre_annonce, description, etat, genre, prix,adresse_vendeur))
+        connection.commit()
+
+        # Fermeture de la connexion à la base de données
+        cursor.close()
+        connection.close()
+
+        return render_template('accueil.html')
 
 
 

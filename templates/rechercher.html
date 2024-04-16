@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filtres Annonces</title>
+</head>
+<body>
+
+<div id="filters">
+    <h2>Filtres Annonces</h2>
+    <form id="filterForm">
+        <label for="adresse_vendeur">Adresse du vendeur:</label>
+        <input type="text" id="adresse_vendeur" name="adresse_vendeur"><br>
+
+        <label for="etat">État:</label>
+        <select id="etat" name="etat">
+            <option value="">Tous</option>
+            <option value="Neuf">Neuf</option>
+            <option value="Usagé">Usagé</option>
+        </select><br>
+
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre">
+            <option value="">Tous</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Non-fiction">Non-fiction</option>
+            <!-- Ajoutez d'autres options en fonction de vos genres -->
+        </select><br>
+
+        <button type="button" onclick="applyFilters()">Appliquer</button>
+    </form>
+</div>
+
+<script>
+function applyFilters() {
+    var filterForm = document.getElementById('filterForm');
+    var formData = new FormData(filterForm);
+
+    var queryString = new URLSearchParams(formData).toString();
+    var filteredURL = '/annonces?' + queryString;
+
+    // Redirection vers la page des annonces filtrées
+    window.location.href = filteredURL;
+}
+</script>
+
+</body>
+</html>

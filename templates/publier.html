@@ -6,7 +6,6 @@
     <title>publier une annonce</title>
 
     <link rel="stylesheet" href="../static/styles.css">
-    <link rel="stylesheet" href="../static/style_general.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 
@@ -56,13 +55,16 @@
 
     <navbar class="navbar" >
 
+        <navbar class >
         <ul>
             <li><a href="/logout">Déconnexion</a></li>
             <li><a href="/mon_compte">Mon Compte</a></li>
             <li><a href="/faq">FAQ</a></li>
             <li><a href="/panier">Mon Panier</a></li>
             <li><a href="/favoris">Mes Favoris</a></li>
-            <li><a href="/">Accueil</a></li>
+           <li><a href="/publier">publier</a></li>  <li><a href="/">Accueil</a></li>
+        </ul>
+    </navbar>
 
 
         </ul>
@@ -81,7 +83,7 @@
 
 {% endif %}
 
-    <form action="/publier_annonce" method="POST">
+    <form action="publier_annonce" method="post">
         <label for="titre_annonce">Titre de l'annonce :</label>
         <input type="text" id="titre_annonce" name="titre_annonce" required>
 
@@ -147,5 +149,27 @@ document.getElementById('images').addEventListener('change', function() {
     </script>
 
 
+<button class="text-size-btn" id="decrease-text-size">-</button>
+    <button class="text-size-btn" id="increase-text-size">+</button>
+
+    <script>
+        // JavaScript pour augmenter la taille du texte
+        document.getElementById("increase-text-size").addEventListener("click", function() {
+            // Récupère la taille actuelle du texte
+            var currentFontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
+            // Augmente la taille du texte de 2 pixels
+            var newFontSize = currentFontSize + 2;
+            document.body.style.fontSize = newFontSize + "px"; // Augmente la taille du texte
+        });
+
+        // JavaScript pour diminuer la taille du texte
+        document.getElementById("decrease-text-size").addEventListener("click", function() {
+            // Récupère la taille actuelle du texte
+            var currentFontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
+            // Diminue la taille du texte de 2 pixels
+            var newFontSize = currentFontSize - 2;
+            document.body.style.fontSize = newFontSize + "px"; // Diminue la taille du texte
+        });
+    </script>
 </body>
 </html>
