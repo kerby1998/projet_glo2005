@@ -15,7 +15,7 @@ app.secret_key = secret_key
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Toshib@123'
+app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'livremarketbd'
 
 mysql = pymysql.connect(
@@ -25,7 +25,8 @@ mysql = pymysql.connect(
     db=app.config['MYSQL_DB']
 )
 
-cursor = mysql.cursor(cursor=DictCursor)
+#cursor = mysql.cursor(cursor=DictCursor)
+cursor = mysql.cursor()
 
 
 @app.route("/")
@@ -73,29 +74,29 @@ def pageConnexion():
 def connexion_au_compte():
     # Connexion au compte d'un utilisateur existant
 
-    adresse_courriel = request.form['adresse_courriel']
-    mot_de_passe = request.form['mot_de_passe']
+        adresse_courriel = request.form['adresse_courriel']
+        mot_de_passe = request.form['mot_de_passe']
 
-    cursor.execute("SELECT mot_de_passe FROM Utilisateurs WHERE adresse_courriel = %s", (adresse_courriel,))
-    result = cursor.fetchone()
+        cursor.execute("SELECT mot_de_passe FROM Utilisateurs WHERE adresse_courriel = %s", (adresse_courriel,))
+        result = cursor.fetchone()
+        print(result)
 
-    if result:
-        mot_de_passe_chiffre = result['mot_de_passe']
+        if result:
+            mot_de_passe_chiffre = result[0]
+            print("mot de passe", mot_de_passe_chiffre)
 
-        if bcrypt.checkpw(mot_de_passe.encode('utf-8'), mot_de_passe_chiffre.encode('utf-8')):
-            session['adresse_courriel'] = adresse_courriel
-            session['loggedin'] = True
-            cursor.execute(
-                "SELECT adresse_courriel,prenom,nom,adresse_civique,num_tel FROM Utilisateurs WHERE adresse_courriel = %s",
-                (adresse_courriel,))
-            result2 = cursor.fetchone()
-            return render_template('compte.html', informations_compte=result2)
+            if bcrypt.checkpw(mot_de_passe.encode('utf-8'), mot_de_passe_chiffre.encode('utf-8')):
+                session['adresse_courriel'] = adresse_courriel
+                cursor.execute(
+                    "SELECT adresse_courriel,prenom,nom,adresse_civique,num_tel FROM Utilisateurs WHERE adresse_courriel = %s",
+                    (adresse_courriel,))
+                result2 = cursor.fetchone()
+                return render_template('compte.html', informations_compte=result2)
+            else:
+                return 'Adresse courriel ou mot de passe invalide.'
+
         else:
             return 'Adresse courriel ou mot de passe invalide.'
-
-    else:
-        return 'Adresse courriel ou mot de passe invalide.'
-
 
 def chiffrer_mot_de_passe(mot_de_passe):
     return bcrypt.hashpw(mot_de_passe.encode('utf-8'), bcrypt.gensalt())
@@ -104,7 +105,7 @@ def chiffrer_mot_de_passe(mot_de_passe):
 @app.route('/inscription', methods=['POST'])
 def create_account():
     # Création d'un compte pour un nouvel utilisateur
-    try:
+
         prenom = request.form.get('prenom')
         nom = request.form.get('nom')
         adresse_courriel = request.form.get('adresse_courriel')
@@ -113,20 +114,23 @@ def create_account():
         num_tel = request.form.get('num_tel')
 
         mot_de_passe_chiffre = chiffrer_mot_de_passe(mot_de_passe)
+        print("longueur:", len(mot_de_passe_chiffre))
+        print("mot de passe :", mot_de_passe)
+        print("mot de passe chiffré:", mot_de_passe_chiffre)
 
-        mysql.cursor().execute(
+        cursor = mysql.cursor()
+
+        cursor.execute(
             'INSERT INTO Utilisateurs (adresse_courriel, prenom, nom, mot_de_passe, adresse_civique, num_tel) VALUES (%s, %s, %s, %s, %s, %s)',
             (adresse_courriel, prenom, nom, mot_de_passe_chiffre, adresse_civique, num_tel)
 
         )
         mysql.commit()
-        mysql.cursor().close()
+        cursor.close()
 
-        return render_template('connexion.html',
-                               message="Votre compte a été créé avec succès. Veuillez vous connecter.")
+        return render_template('connexion.html', message = "Votre compte a été créé avec succès. Veuillez vous connecter.")
 
-    except Exception as e:
-        return f"Une erreur s'est produite lors de la création de votre compte : {str(e)}"
+
 
 
 @app.route('/recherche', methods=['GET', 'POST'])
@@ -362,9 +366,6 @@ def ajouter_annonce_panier():
         return f"Une erreur s'est produite lors de l'ajout de l'annonce au panier : {str(e)}"
 
 
-
-
-
 @app.route('/publier_annonce', methods=['POST'])
 def publier_annonce():
     if 'adresse_courriel' in session:
@@ -389,14 +390,6 @@ def publier_annonce():
         connection.close()
 
         return render_template('accueil.html')
-
-
-
-
-
-
-
-
 
 @app.route('/supprimer_favoris_panier', methods=['POST'])
 def supprimer_favoris_panier():
