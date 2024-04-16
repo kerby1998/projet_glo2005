@@ -1,12 +1,19 @@
 from flask import Flask, request, render_template, session, jsonify
 from app import cursor
-import mysql.connector
+#import mysql.connector
 import bcrypt
 import os
+import pymysql
 
 app = Flask(__name__)
-db_connection = mysql
+db_connection = pymysql.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="LivreMarketBD"
+)
 
+cursor = db_connection.cursor()
 
 
 def chiffrer_mot_de_passe(mot_de_passe):
@@ -35,7 +42,7 @@ def create_account():
         return f"Une erreur s'est produite lors de la création de votre compte : {str(e)}"
 
 
-@app.route('/connexion_compte', methods=['GET'])
+#@app.route('/connexion_compte', methods=['GET'])
 def connexion_au_compte():
     # Connexion au compte d'un utilisateur existant
     try:
