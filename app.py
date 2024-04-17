@@ -312,6 +312,59 @@ def filter_annonces():
     return jsonify(annonces)
 
 
+@app.route('/ajouter_favoris/<id_annonce>', methods=['POST'])
+def ajouter_annonce_panier_listesouhaits(id_annonce):
+    try:
+        adresse_utilisateur = session.get('adresse_utilisateur')
+        if adresse_utilisateur is None:
+            return "Utilisateur non connecté"
+
+        id_element = id_annonce
+        cursor = mysql.connection.cursor(cursor=DictCursor)
+
+        id_dest_query = "SELECT id_souhaits FROM Listes_Souhaits WHERE adresse_utilisateur = %s"
+        cursor.execute(id_dest_query, (adresse_utilisateur,))
+        id_dest = cursor.fetchone()[0]
+
+        query = "INSERT INTO Contenu_Liste_Souhaits (id_liste, id_annonce) VALUES (%s, %s)"
+        message = "L'élément a été ajouté avec succès à la liste de souhaits."
+        cursor.execute(query, (id_dest, id_element))
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return jsonify({'message': message})
+    except Exception as e:
+        return f"Une erreur s'est produite lors de l'ajout de l'élément : {str(e)}"
+
+@app.route('/ajouter_panier/<id_annonce>', methods=['POST'])
+def ajouter_panier(id_annonce):
+    try:
+        adresse_utilisateur = session.get('adresse_utilisateur')
+        if adresse_utilisateur is None:
+            return "Utilisateur non connecté"
+
+        id_element = id_annonce
+        cursor = mysql.connection.cursor(cursor=DictCursor)
+
+        id_dest_query = "SELECT id_panier FROM Panier WHERE adresse_utilisateur = %s"
+        cursor.execute(id_dest_query, (adresse_utilisateur,))
+        id_dest = cursor.fetchone()[0]
+
+        query = "INSERT INTO PanierAnnonce (id_panier, id_annonce) VALUES (%s, %s)"
+        message = "L'élément a été ajouté avec succès dans le panier."
+        cursor.execute(query, (id_dest, id_element))
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return jsonify({'message': message})
+    except Exception as e:
+        return f"Une erreur s'est produite lors de l'ajout de l'élément : {str(e)}"
+
+
+
+
 @app.route('/favoris', methods=['GET'])
 def select_details_favoris_utilisateur():
     try:
