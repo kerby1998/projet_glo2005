@@ -122,10 +122,40 @@ button:hover {
         <div class="form-group">
             <label for="genre">Genre:</label>
             <select id="genre" name="genre">
-                    <option value="">Sélectionnez un genre</option>
-
+                <option value="">Sélectionnez un genre</option>
                 <option value="Fiction">Fiction</option>
                 <option value="Non-fiction">Non-fiction</option>
+                <option value="Romans">Romans</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Science-fiction">Science-fiction</option>
+                <option value="Fantaisie">Fantaisie</option>
+                <option value="Mystère">Mystère</option>
+                <option value="Horreur">Horreur</option>
+                <option value="Biographie">Biographie</option>
+                <option value="Autobiographie">Autobiographie</option>
+                <option value="Poésie">Poésie</option>
+                <option value="Drame">Drame</option>
+                <option value="Humour">Humour</option>
+                <option value="Histoire">Histoire</option>
+                <option value="Science">Science</option>
+                <option value="Philosophie">Philosophie</option>
+                <option value="Art">Art</option>
+                <option value="Cuisine">Cuisine</option>
+                <option value="Voyage">Voyage</option>
+                <option value="Religion">Religion</option>
+                <option value="Spiritualité">Spiritualité</option>
+                <option value="Éducation">Éducation</option>
+                <option value="Affaires">Affaires</option>
+                <option value="Finance">Finance</option>
+                <option value="Santé">Santé</option>
+                <option value="Mode de vie">Mode de vie</option>
+                <option value="Sport">Sport</option>
+                <option value="Technologie">Technologie</option>
+                <option value="Jeunesse">Jeunesse</option>
+                <option value="Aventure">Aventure</option>
+                <option value="Classique">Classique</option>
+                <option value="Théâtre">Théâtre</option>
+                <option value="Fantastique">Fantastique</option>
                 <!-- Ajoutez d'autres options en fonction de vos genres -->
             </select>
         </div>
@@ -163,8 +193,17 @@ button:hover {
             </div>
             <img style="width: 200px; height: 200px; left: 34px; top: 34px; position: absolute; border-radius: 25px"
                  src="https://via.placeholder.com/200x200"/>
-            <div style="width: 300px; height: 50px; left: 284px; top: 35px; position: absolute; color: black; font-size: 28px; font-family: Roboto,serif; font-weight: 500; word-wrap: break-word">{{ annonce.titre_annonce }}</div>
-            <div style="width: 565px; height: 97px; left: 284px; top: 82px; position: absolute; color: black; font-size: 18px; font-family: Roboto,serif; font-weight: 300; word-wrap: break-word">{{ annonce.description }}</div>
+            <div style="width: 300px; height: 50px; left: 284px; top: 35px; position: absolute; color: black; font-size: 28px; font-family: Roboto,serif; font-weight: 500; word-wrap: break-word">Titre : {{ annonce.titre_annonce }}</div>
+            <div style="width: 565px; height: 97px; left: 284px; top: 130px; position: absolute; color: black; font-size: 18px; font-family: Roboto,serif; font-weight: 300; word-wrap: break-word">Description : {{ annonce.description }}</div>
+            <div style="width: 830px; height: 97px; left: 284px; top: 159px; position: absolute; color: black; font-size: 18px; font-family: Roboto,serif; font-weight: 300; word-wrap: break-word">Genre : {{ annonce.genre }}</div>
+            <div style="width: 1095px; height: 97px; left: 284px; top: 188px; position: absolute; color: black; font-size: 18px; font-family: Roboto,serif; font-weight: 300; word-wrap: break-word">Vendeur : {{ annonce.adresse_vendeur }}</div>
+            <form method="POST" action="{{ url_for('ajouter_panier', id_annonce=annonce.id_annonce) }}">
+                <button style="width: 100px; height: 37px; left: 284px; top: 228px; position: absolute; color: white; font-size: 12px; font-family: Roboto,serif; font-weight: 300; word-wrap: break-word">Panier</button>
+            </form>
+            <form method="POST" action="{{ url_for('ajouter_annonce_panier_listesouhaits', id_annonce=annonce.id_annonce) }}">
+                <button style="width: 120px; height: 37px; left: 394px; top: 228px; position: absolute; color: white; font-size: 12px; font-family: Roboto,serif; font-weight: 300; word-wrap: break-word">Liste souhait</button>
+            </form>
+
         </div>
     </a>
     {% endfor %}
